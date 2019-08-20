@@ -4,6 +4,7 @@ from math import sin, cos, radians
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+RESOURSE_COUNT = 4
 
 def check_collision(obj1, obj2):
 
