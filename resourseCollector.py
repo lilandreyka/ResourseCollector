@@ -5,6 +5,26 @@ from math import sin, cos, radians
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
+def check_collision(obj1, obj2):
+
+    ax1 = obj1.x - obj1.size / 2
+    ay1 = obj1.y - obj1.size / 2
+    ax2 = obj1.x + obj1.size / 2
+    ay2 = obj1.y + obj1.size / 2
+
+    bx1 = obj2.x - obj2.size / 2
+    by1 = obj2.y - obj2.size / 2
+    bx2 = obj2.x + obj2.size / 2
+    by2 = obj2.y + obj2.size / 2
+
+    s1 = (ax1 >= bx1 and ax1 <= bx2) or (ax2 >= bx1 and ax2 <= bx2)
+    s2 = (ay1 >= by1 and ay1 <= by2) or (ay2 >= by1 and ay2 <= by2)
+    s3 = (bx1 >= ax1 and bx1 <= ax2) or (bx2 >= ax1 and bx2 <= ax2)
+    s4 = (by1 >= ay1 and by1 <= ay2) or (by2 >= ay1 and by2 <= ay2)
+
+    return ((s1 and s2) or (s3 and s4)) or\
+           ((s1 and s4) or (s3 and s2))
+   
 
 class Robot:
     def __init__(self, x, y):
