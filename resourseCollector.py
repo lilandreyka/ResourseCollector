@@ -39,12 +39,12 @@ class Robot:
         self.color = arcade.color.BLOND
 
     def turn_left(self):
-        self.ang -= 10
+        self.ang -= 20
         self.dx = sin(radians(self.ang))
         self.dy = cos(radians(self.ang))
 
     def turn_right(self):
-        self.ang += 10
+        self.ang += 20
         self.dx = sin(radians(self.ang))
         self.dy = cos(radians(self.ang))
 
@@ -57,8 +57,21 @@ class Robot:
             self.speed -= 1
 
     def move(self):
-        self.x += self.dx * self.speed
-        self.y += self.dy * self.speed
+        if self.size <= self.x <= SCREEN_WIDTH - self.size:
+            self.x += self.dx * self.speed
+        if self.size <= self.y <= SCREEN_HEIGHT - self.size:
+            self.y += self.dy * self.speed
+
+        if self.x < self.size:
+            self.x = self.size
+        if self.x > SCREEN_WIDTH - self.size:
+            self.x = SCREEN_WIDTH - self.size
+
+        if self.y < self.size:
+            self.y = self.size
+        if self.y > SCREEN_HEIGHT - self.size:
+            self.y = SCREEN_HEIGHT - self.size
+
 
     def draw(self):
         arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size,
