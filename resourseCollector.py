@@ -64,6 +64,16 @@ class Robot:
                                      [100, 0, 0])
         pass
 
+class Resurse:
+    def __init__(self):
+        self.size = 50
+        self.x = random.randint(self.size, SCREEN_WIDTH - self.size)
+        self.y = random.randint(self.size, SCREEN_WIDTH - self.size)
+        self.color = [150, 150, 100]
+
+    def draw(self):
+        arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size, self.color)
+
 
 class Background:
     def __init__(self):
@@ -79,16 +89,22 @@ class MyGame(arcade.Window):
         super().__init__(width, height)
 
         arcade.set_background_color(arcade.color.AMAZON)
+        self.resurse_list = []
 
     def setup(self):
         # Настроить игру здесь
         self.robot = Robot(100, 250)
+        for i in range(RESOURSE_COUNT):
+            self.resurse_list.append(Resurse())
         pass
 
     def on_draw(self):
         """ Отрендерить этот экран. """
         arcade.start_render()
         # Здесь код рисунка
+        for resourse in self.resurse_list:
+            resourse.draw()
+
         self.robot.draw()
 
     def on_key_press(self, symbol: int, modifiers: int):
