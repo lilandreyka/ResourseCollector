@@ -180,12 +180,12 @@ class MyGame(arcade.Window):
 
     def draw_telemetry(self):
         telemetry = 'скорость: {} \n'.format(self.robot.speed) + \
-                    'угол: {} \n'.format(self.robot.ang) + \
-                    'топливо: {} \n'.format(round(self.robot.fuel)) + \
-                    'box: {} \n'.format(self.robot.box_current)
+                    'топливо: {} %\n'.format(round(self.robot.fuel)) + \
+                    'в поле: {} \n'.format(len(self.resurse_list)) + \
+                    'на борту: {} \n'.format(self.robot.box_current)
 
-        arcade.draw_xywh_rectangle_filled(5, 10, 130, 120, arcade.color.DARK_BLUE_GRAY)
-        arcade.draw_xywh_rectangle_outline(5, 10, 130, 120, arcade.color.BLACK, 4)
+        arcade.draw_xywh_rectangle_filled(5, 10, 150, 120, arcade.color.DARK_BLUE_GRAY)
+        arcade.draw_xywh_rectangle_outline(5, 10, 150, 120, arcade.color.BLACK, 4)
         arcade.draw_text(telemetry, 10, 100, arcade.color.YELLOW, 15, anchor_x="left")
 
 
