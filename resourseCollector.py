@@ -35,6 +35,8 @@ class Robot:
         self.dy = 0
         self.speed = 0
         self.ang = 0
+        self.fuel = 100
+        self.fuel_dec = 0.1
         self.size = 40
         self.color = arcade.color.BLOND
 
@@ -57,6 +59,8 @@ class Robot:
             self.speed -= 1
 
     def move(self):
+
+        self.fuel -= self.fuel_dec * (abs(self.speed) * 0.3)
         if self.size <= self.x <= SCREEN_WIDTH - self.size:
             self.x += self.dx * self.speed
         if self.size <= self.y <= SCREEN_HEIGHT - self.size:
@@ -72,6 +76,8 @@ class Robot:
         if self.y > SCREEN_HEIGHT - self.size:
             self.y = SCREEN_HEIGHT - self.size
 
+    def update(self):
+        poass
 
     def draw(self):
         arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size,
@@ -118,7 +124,8 @@ class MyGame(arcade.Window):
 
     def draw_telemetry(self):
         telemetry = 'speed: {} \n'.format(self.robot.speed) + \
-                    'ang: {} \n'.format(self.robot.ang)
+                    'ang: {} \n'.format(self.robot.ang) + \
+                    'fuel: {} \n'.format(round(self.robot.fuel, 1))
 
         arcade.draw_text(telemetry, 10, 10, arcade.color.BLACK, 18, anchor_x="left")
 
@@ -147,6 +154,7 @@ class MyGame(arcade.Window):
     def update(self, delta_time):
         """ Здесь вся игровая логика и логика перемещения."""
         self.robot.move()
+
         pass
 
 
