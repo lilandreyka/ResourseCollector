@@ -66,6 +66,11 @@ class Robot:
             self.box_current += 1
             return True
 
+    def unload_box(self):
+        box_count = self.box_current
+        self.box_current = 0
+        return box_count
+
     def move(self):
         if self.fuel > 0:
             self.fuel -= self.fuel_dec * (abs(self.speed) * 0.3)
@@ -123,10 +128,27 @@ class Base:
         self.x = SCREEN_WIDTH / 2
         self.y = 50
         self.size = 150
+        self.resourses_max = 10
+        self.resourses = 0
         self.img = arcade.load_texture("img/base.png")
 
     def draw(self):
         arcade.draw_texture_rectangle(self.x, self.y, self.size, self.size, self.img)
+        size_x = 20
+        size_y = self.size / self.resourses_max
+        for i in range(self.resourses_max):
+            x = self.x + self.size * 0.5
+            y = 10 + size_y * i
+            if i < self.resourses:
+                color = arcade.color.GREEN
+            else:
+                color = arcade.color.GRAY
+            arcade.draw_rectangle_filled(x, y, size_x, size_y - 1, color)
+
+    def load_box(self, box_count):
+        # загружаем коробки с ресурсами на базу. Лишние исчезают.
+        self.resourses += box_count
+        self.resourses %= self.resourses_max
 
 
 class Background:
@@ -200,6 +222,9 @@ class MyGame(arcade.Window):
             if check_collision(resourse, self.robot):
                 if self.robot.load_box():
                     self.resurse_list.remove(resourse)
+
+        if check_collision(self.base, self.robot):
+            self.base.load_box(self.robot.unload_box())
 
 
 def main():
