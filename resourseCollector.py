@@ -36,7 +36,7 @@ class Robot:
         self.speed = 0
         self.ang = 0
         self.fuel = 100
-        self.fuel_dec = 0.1
+        self.fuel_dec = 0.05
         self.size = 40
         self.color = arcade.color.BLOND
 
@@ -59,22 +59,22 @@ class Robot:
             self.speed -= 1
 
     def move(self):
+        if self.fuel > 0:
+            self.fuel -= self.fuel_dec * (abs(self.speed) * 0.3)
+            if self.size <= self.x <= SCREEN_WIDTH - self.size:
+                self.x += self.dx * self.speed
+            if self.size <= self.y <= SCREEN_HEIGHT - self.size:
+                self.y += self.dy * self.speed
 
-        self.fuel -= self.fuel_dec * (abs(self.speed) * 0.3)
-        if self.size <= self.x <= SCREEN_WIDTH - self.size:
-            self.x += self.dx * self.speed
-        if self.size <= self.y <= SCREEN_HEIGHT - self.size:
-            self.y += self.dy * self.speed
+            if self.x < self.size:
+                self.x = self.size
+            if self.x > SCREEN_WIDTH - self.size:
+                self.x = SCREEN_WIDTH - self.size
 
-        if self.x < self.size:
-            self.x = self.size
-        if self.x > SCREEN_WIDTH - self.size:
-            self.x = SCREEN_WIDTH - self.size
-
-        if self.y < self.size:
-            self.y = self.size
-        if self.y > SCREEN_HEIGHT - self.size:
-            self.y = SCREEN_HEIGHT - self.size
+            if self.y < self.size:
+                self.y = self.size
+            if self.y > SCREEN_HEIGHT - self.size:
+                self.y = SCREEN_HEIGHT - self.size
 
     def update(self):
         poass
@@ -149,7 +149,6 @@ class MyGame(arcade.Window):
              self.robot.speed_up()
         if symbol == arcade.key.DOWN:
              self.robot.speed_down()
-
 
     def update(self, delta_time):
         """ Здесь вся игровая логика и логика перемещения."""
