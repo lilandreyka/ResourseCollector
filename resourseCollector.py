@@ -93,7 +93,7 @@ class Resurse:
 
 class Background:
     def __init__(self):
-        self.img = arcade.load_texture("img/6561457.gif")
+        self.img = arcade.load_texture("img/background.jpg")
 
     def draw(self):
         arcade.draw_texture_rectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, self.img)
@@ -109,6 +109,8 @@ class MyGame(arcade.Window):
 
     def setup(self):
         # Настроить игру здесь
+        self.background = Background()
+
         self.robot = Robot(100, 250)
         for i in range(RESOURSE_COUNT):
             self.resurse_list.append(Resurse())
@@ -124,6 +126,7 @@ class MyGame(arcade.Window):
         """ Отрендерить этот экран. """
         arcade.start_render()
         # Здесь код рисунка
+        self.background.draw()
         for resourse in self.resurse_list:
             resourse.draw()
 
