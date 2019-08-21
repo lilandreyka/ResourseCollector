@@ -129,6 +129,11 @@ class MyGame(arcade.Window):
 
         arcade.draw_text(telemetry, 10, 10, arcade.color.YELLOW, 18, anchor_x="left")
 
+    def draw_obvodka(self):
+        arcade.draw_rectangle_filled(10, 10, 220, 220, arcade.color.DARK_BLUE_GRAY)
+
+        arcade.draw_rectangle_outline(10, 10, 220, 220, arcade.color.BLACK, 4)
+
 
     def on_draw(self):
         """ Отрендерить этот экран. """
@@ -137,7 +142,7 @@ class MyGame(arcade.Window):
         self.background.draw()
         for resourse in self.resurse_list:
             resourse.draw()
-
+        self.draw_obvodka()
         self.robot.draw()
         self.draw_telemetry()
 
