@@ -32,6 +32,7 @@ class Robot:
         self.x = x
         self.y = y
         self.speed = 0
+        self.speed_turn = 0
         self.ang = 0
         self.dx = sin(radians(self.ang))
         self.dy = cos(radians(self.ang))
@@ -44,17 +45,13 @@ class Robot:
         self.color = arcade.color.BLOND
 
     def turn_left(self):
-        self.ang -= 10
-        self.dx = sin(radians(self.ang))
-        self.dy = cos(radians(self.ang))
-        if self.ang < 0:
-            self.ang += 360
+        self.speed_turn = -1
 
     def turn_right(self):
-        self.ang += 10
-        self.dx = sin(radians(self.ang))
-        self.dy = cos(radians(self.ang))
-        self.ang %= 360
+        self.speed_turn = 1
+
+    def turn_stop(self):
+        self.speed_turn = 0
 
     def speed_up(self):
         if self.speed < 5:
@@ -88,7 +85,12 @@ class Robot:
                 self.y = SCREEN_HEIGHT - self.size
 
     def update(self):
-        pass
+        self.ang += self.speed_turn
+        self.dx = sin(radians(self.ang))
+        self.dy = cos(radians(self.ang))
+        if self.ang < 0:
+            self.ang += 360
+        self.ang %= 360
 
     def draw(self):
         # arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size, [100, 0, 0])
@@ -172,15 +174,20 @@ class MyGame(arcade.Window):
         if symbol == arcade.key.DOWN:
              self.robot.speed_down()
 
+    def on_key_release(self, symbol: int, modifiers: int):
+        if symbol == arcade.key.LEFT:
+             self.robot.turn_stop()
+        if symbol == arcade.key.RIGHT:
+            self.robot.turn_stop()
+
     def update(self, delta_time):
         """ Здесь вся игровая логика и логика перемещения."""
+        self.robot.update()
         self.robot.move()
         for resourse in self.resurse_list:
             if check_collision(resourse, self.robot):
                 if self.robot.load_box():
                     self.resurse_list.remove(resourse)
-
-        pass
 
 
 def main():
