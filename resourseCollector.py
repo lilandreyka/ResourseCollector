@@ -25,7 +25,7 @@ def check_collision(obj1, obj2):
 
     return ((s1 and s2) or (s3 and s4)) or\
            ((s1 and s4) or (s3 and s2))
-   
+
 
 class Robot:
     def __init__(self, x, y):
@@ -114,6 +114,12 @@ class MyGame(arcade.Window):
             self.resurse_list.append(Resurse())
         pass
 
+    def draw_telemetry(self):
+        telemetry = 'speed: {} \n'.format(self.robot.speed) + \
+                    'ang: {} \n'.format(self.robot.ang)
+
+        arcade.draw_text(telemetry, 10, 10, arcade.color.BLACK, 18, anchor_x="left")
+
     def on_draw(self):
         """ Отрендерить этот экран. """
         arcade.start_render()
@@ -122,6 +128,7 @@ class MyGame(arcade.Window):
             resourse.draw()
 
         self.robot.draw()
+        self.draw_telemetry()
 
     def on_key_press(self, symbol: int, modifiers: int):
         if symbol == arcade.key.LEFT:
