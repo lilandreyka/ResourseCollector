@@ -37,26 +37,30 @@ class Robot:
         self.ang = 0
         self.fuel = 100
         self.fuel_dec = 0.05
-        self.size = 40
+        self.size = 60
+        self.img = arcade.load_texture('robot1.png')
         self.color = arcade.color.BLOND
 
     def turn_left(self):
-        self.ang -= 20
+        self.ang -= 10
         self.dx = sin(radians(self.ang))
         self.dy = cos(radians(self.ang))
+        if self.ang < 0:
+            self.ang += 360
 
     def turn_right(self):
-        self.ang += 20
+        self.ang += 10
         self.dx = sin(radians(self.ang))
         self.dy = cos(radians(self.ang))
+        self.ang %= 360
 
     def speed_up(self):
         if self.speed < 5:
-            self.speed += 1
+            self.speed += 0.5
 
     def speed_down(self):
         if self.speed >= 0:
-            self.speed -= 1
+            self.speed -= 0.5
 
     def move(self):
         if self.fuel > 0:
@@ -80,8 +84,8 @@ class Robot:
         pass
 
     def draw(self):
-        arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size,
-                                     [100, 0, 0])
+        # arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size, [100, 0, 0])
+        arcade.draw_texture_rectangle(self.x, self.y, self.size, self.size, self.img, 360 - self.ang)
         pass
 
 class Resurse:
