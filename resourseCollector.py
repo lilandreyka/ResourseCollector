@@ -144,15 +144,12 @@ class MyGame(arcade.Window):
     def draw_telemetry(self):
         telemetry = 'скорость: {} \n'.format(self.robot.speed) + \
                     'угол: {} \n'.format(self.robot.ang) + \
-                    'топливо: {} \n'.format(round(self.robot.fuel, 1)) + \
+                    'топливо: {} \n'.format(round(self.robot.fuel)) + \
                     'box: {} \n'.format(self.robot.box_current)
 
-        arcade.draw_text(telemetry, 10, 10, arcade.color.YELLOW, 15, anchor_x="left")
-
-    def draw_obvodka(self):
-        arcade.draw_rectangle_filled(10, 10, 220, 220, arcade.color.DARK_BLUE_GRAY)
-
-        arcade.draw_rectangle_outline(10, 10, 220, 220, arcade.color.BLACK, 4)
+        arcade.draw_xywh_rectangle_filled(5, 10, 130, 120, arcade.color.DARK_BLUE_GRAY)
+        arcade.draw_xywh_rectangle_outline(5, 10, 130, 120, arcade.color.BLACK, 4)
+        arcade.draw_text(telemetry, 10, 100, arcade.color.YELLOW, 15, anchor_x="left")
 
 
     def on_draw(self):
@@ -162,7 +159,6 @@ class MyGame(arcade.Window):
         self.background.draw()
         for resourse in self.resurse_list:
             resourse.draw()
-        self.draw_obvodka()
         self.robot.draw()
         self.draw_telemetry()
 
