@@ -31,16 +31,16 @@ class Robot:
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        self.dx = 0
-        self.dy = 0
         self.speed = 0
         self.ang = 0
+        self.dx = sin(radians(self.ang))
+        self.dy = cos(radians(self.ang))
         self.fuel = 100
         self.fuel_dec = 0.05
         self.size = 60
         self.box_total = 4
         self.box_current = 0
-        self.img = arcade.load_texture('robot1.png')
+        self.img = arcade.load_texture('img/robot1.png')
         self.color = arcade.color.BLOND
 
     def turn_left(self):
@@ -105,11 +105,11 @@ class Resurse:
         self.y = random.randint(self.size, SCREEN_WIDTH - self.size)
         self.color = [150, 150, 100]
         if self.type == 'water':
-            self.img = arcade.load_texture('img/water.png')
+            self.img = arcade.load_texture('img/res_water.png')
         elif self.type == 'stone':
-            self.img = arcade.load_texture('img/speedboost.png')
+            self.img = arcade.load_texture('img/res_stone.png')
         elif self.type == 'iron':
-            self.img = arcade.load_texture('img/metal.png')
+            self.img = arcade.load_texture('img/res_metal.png')
 
 
     def draw(self):
