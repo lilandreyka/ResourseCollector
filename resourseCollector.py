@@ -36,7 +36,7 @@ class Robot:
         self.speed = 0
         self.ang = 0
         self.fuel = 100
-        self.fuel_dec = 0.05
+        self.fuel_dec = 0.005
         self.size = 40
         self.color = arcade.color.BLOND
 
