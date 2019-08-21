@@ -67,6 +67,7 @@ class Robot:
     def load_box(self):
         if self.box_current < self.box_total:
             self.box_current += 1
+        return self.box_current < self.box_total
 
     def move(self):
         if self.fuel > 0:
@@ -142,12 +143,12 @@ class MyGame(arcade.Window):
         pass
 
     def draw_telemetry(self):
-        telemetry = 'speed: {} \n'.format(self.robot.speed) + \
-                    'ang: {} \n'.format(self.robot.ang) + \
-                    'fuel: {} \n'.format(round(self.robot.fuel, 1)) + \
-                    'box_current: {} \n'.format(self.robot.box_current)
+        telemetry = 'скорость: {} \n'.format(self.robot.speed) + \
+                    'угол: {} \n'.format(self.robot.ang) + \
+                    'топливо: {} \n'.format(round(self.robot.fuel, 1)) + \
+                    'box: {} \n'.format(self.robot.box_current)
 
-        arcade.draw_text(telemetry, 10, 10, arcade.color.YELLOW, 18, anchor_x="left")
+        arcade.draw_text(telemetry, 10, 10, arcade.color.YELLOW, 15, anchor_x="left")
 
     def draw_obvodka(self):
         arcade.draw_rectangle_filled(10, 10, 220, 220, arcade.color.DARK_BLUE_GRAY)
@@ -181,8 +182,8 @@ class MyGame(arcade.Window):
         self.robot.move()
         for resourse in self.resurse_list:
             if check_collision(resourse, self.robot):
-                self.robot.load_box()
-                self.resurse_list.remove(resourse)
+                if self.robot.load_box():
+                    self.resurse_list.remove(resourse)
 
         pass
 
