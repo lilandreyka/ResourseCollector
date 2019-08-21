@@ -144,7 +144,8 @@ class MyGame(arcade.Window):
     def draw_telemetry(self):
         telemetry = 'speed: {} \n'.format(self.robot.speed) + \
                     'ang: {} \n'.format(self.robot.ang) + \
-                    'fuel: {} \n'.format(round(self.robot.fuel, 1))
+                    'fuel: {} \n'.format(round(self.robot.fuel, 1)) + \
+                    'box_current: {} \n'.format(self.robot.box_current)
 
         arcade.draw_text(telemetry, 10, 10, arcade.color.YELLOW, 18, anchor_x="left")
 
