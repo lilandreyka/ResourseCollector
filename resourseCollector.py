@@ -67,7 +67,7 @@ class Robot:
     def load_box(self):
         if self.box_current < self.box_total:
             self.box_current += 1
-        return self.box_current < self.box_total
+            return True
 
     def move(self):
         if self.fuel > 0:
