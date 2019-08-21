@@ -118,6 +118,17 @@ class Resurse:
         arcade.draw_texture_rectangle(self.x, self.y, self.size, self.size, self.img)
 
 
+class Base:
+    def __init__(self):
+        self.x = SCREEN_WIDTH / 2
+        self.y = 50
+        self.size = 150
+        self.img = arcade.load_texture("img/base.png")
+
+    def draw(self):
+        arcade.draw_texture_rectangle(self.x, self.y, self.size, self.size, self.img)
+
+
 class Background:
     def __init__(self):
         self.img = arcade.load_texture("img/background.png")
@@ -137,8 +148,8 @@ class MyGame(arcade.Window):
     def setup(self):
         # Настроить игру здесь
         self.background = Background()
-
-        self.robot = Robot(100, 250)
+        self.base = Base()
+        self.robot = Robot(self.base.x, self.base.y + 50)
         for i in range(RESOURSE_COUNT):
             self.resurse_list.append(Resurse())
         pass
@@ -159,6 +170,7 @@ class MyGame(arcade.Window):
         arcade.start_render()
         # Здесь код рисунка
         self.background.draw()
+        self.base.draw()
         for resourse in self.resurse_list:
             resourse.draw()
         self.robot.draw()
