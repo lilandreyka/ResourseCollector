@@ -74,20 +74,20 @@ class Robot:
     def move(self):
         if self.fuel > 0:
             self.fuel -= self.fuel_dec * (abs(self.speed) * 0.3)
-            if self.size <= self.x <= SCREEN_WIDTH - self.size:
+            if self.size / 2 <= self.x <= SCREEN_WIDTH - self.size / 2 and \
+               self.size / 2 <= self.y <= SCREEN_HEIGHT - self.size / 2:
                 self.x += self.dx * self.speed
-            if self.size <= self.y <= SCREEN_HEIGHT - self.size:
                 self.y += self.dy * self.speed
+            else:
+                if self.x < self.size / 2:
+                    self.x = self.size / 2
+                if self.x > SCREEN_WIDTH - self.size / 2:
+                    self.x = SCREEN_WIDTH - self.size / 2
 
-            if self.x < self.size:
-                self.x = self.size
-            if self.x > SCREEN_WIDTH - self.size:
-                self.x = SCREEN_WIDTH - self.size
-
-            if self.y < self.size:
-                self.y = self.size
-            if self.y > SCREEN_HEIGHT - self.size:
-                self.y = SCREEN_HEIGHT - self.size
+                if self.y < self.size / 2:
+                    self.y = self.size / 2
+                if self.y > SCREEN_HEIGHT - self.size / 2:
+                    self.y = SCREEN_HEIGHT - self.size / 2
 
     def update(self):
         self.ang += self.speed_turn
@@ -96,6 +96,8 @@ class Robot:
         if self.ang < 0:
             self.ang += 360
         self.ang %= 360
+        if self.speed_turn != 0:
+            self.fuel -= self.fuel_dec * (abs(self.speed_turn) * 0.1)
 
     def draw(self):
         # arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size, [100, 0, 0])
