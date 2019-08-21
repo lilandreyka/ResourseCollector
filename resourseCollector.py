@@ -109,7 +109,7 @@ class Resurse:
         self.type = random.choice(Resurse.type_list)
         self.size = 50
         self.x = random.randint(self.size, SCREEN_WIDTH - self.size)
-        self.y = random.randint(self.size, SCREEN_WIDTH - self.size)
+        self.y = random.randint(self.size, SCREEN_HEIGHT - self.size)
         self.color = [150, 150, 100]
         if self.type == 'water':
             self.img = arcade.load_texture('img/res_water.png')
@@ -169,12 +169,12 @@ class MyGame(arcade.Window):
 
     def setup(self):
         # Настроить игру здесь
+        self.state = 'run'
         self.background = Background()
         self.base = Base()
         self.robot = Robot(self.base.x, self.base.y + 50)
         for i in range(RESOURSE_COUNT):
             self.resurse_list.append(Resurse())
-        pass
 
     def draw_telemetry(self):
         telemetry = 'скорость: {} \n'.format(self.robot.speed) + \
@@ -197,6 +197,16 @@ class MyGame(arcade.Window):
             resourse.draw()
         self.robot.draw()
         self.draw_telemetry()
+        if self.state == 'game_over':
+            arcade.draw_text("Миссия провалена!",
+                             SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                             arcade.color.RED, 25, width=200,
+                             align="center", anchor_x="center", anchor_y="center")
+        if self.state == 'win':
+            arcade.draw_text("УРА!!!\nМиссия выполнена!",
+                             SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
+                             arcade.color.RED, 25, width=200,
+                             align="center", anchor_x="center", anchor_y="center")
 
     def on_key_press(self, symbol: int, modifiers: int):
         if symbol == arcade.key.LEFT:
@@ -216,15 +226,21 @@ class MyGame(arcade.Window):
 
     def update(self, delta_time):
         """ Здесь вся игровая логика и логика перемещения."""
-        self.robot.update()
-        self.robot.move()
-        for resourse in self.resurse_list:
-            if check_collision(resourse, self.robot):
-                if self.robot.load_box():
-                    self.resurse_list.remove(resourse)
+        if self.state == 'run':
+            self.robot.update()
+            self.robot.move()
+            for resourse in self.resurse_list:
+                if check_collision(resourse, self.robot):
+                    if self.robot.load_box():
+                        self.resurse_list.remove(resourse)
 
-        if check_collision(self.base, self.robot):
-            self.base.load_box(self.robot.unload_box())
+            if check_collision(self.base, self.robot):
+                self.base.load_box(self.robot.unload_box())
+
+            if self.robot.fuel <= 0:
+                self.state = 'game_over'
+            elif len(self.resurse_list) == 0 and self.robot.box_current == 0:
+                self.state = 'win'
 
 
 def main():
