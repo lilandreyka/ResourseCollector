@@ -36,7 +36,7 @@ class Robot:
         self.speed = 0
         self.ang = 0
         self.fuel = 100
-        self.fuel_dec = 0.1
+        self.fuel_dec = 0.05
         self.size = 40
         self.color = arcade.color.BLOND
 
@@ -77,7 +77,7 @@ class Robot:
             self.y = SCREEN_HEIGHT - self.size
 
     def update(self):
-        poass
+        pass
 
     def draw(self):
         arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size,
@@ -99,7 +99,7 @@ class Resurse:
 
 class Background:
     def __init__(self):
-        self.img = arcade.load_texture("img/background.jpg")
+        self.img = arcade.load_texture("img/background.png")
 
     def draw(self):
         arcade.draw_texture_rectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH, SCREEN_HEIGHT, self.img)
