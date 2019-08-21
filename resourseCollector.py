@@ -4,7 +4,7 @@ from math import sin, cos, radians
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-RESOURSE_COUNT = 4
+RESOURSE_COUNT = 6
 
 def check_collision(obj1, obj2):
 
@@ -94,13 +94,22 @@ class Robot:
         arcade.draw_texture_rectangle(self.x, self.y, self.size, self.size, self.img, 360 - self.ang)
         pass
 
+
 class Resurse:
+    type_list = ['water', 'stone', 'iron']
     def __init__(self):
+        self.type = random.choice(Resurse.type_list)
         self.size = 50
         self.x = random.randint(self.size, SCREEN_WIDTH - self.size)
         self.y = random.randint(self.size, SCREEN_WIDTH - self.size)
         self.color = [150, 150, 100]
-        self.img = arcade.load_texture('img/water.png')
+        if self.type == 'water':
+            self.img = arcade.load_texture('img/water.png')
+        elif self.type == 'stone':
+            self.img = arcade.load_texture('img/speedboost.png')
+        elif self.type == 'iron':
+            self.img = arcade.load_texture('img/metal.png')
+
 
     def draw(self):
         # arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size, self.color)
