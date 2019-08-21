@@ -127,7 +127,8 @@ class MyGame(arcade.Window):
                     'ang: {} \n'.format(self.robot.ang) + \
                     'fuel: {} \n'.format(round(self.robot.fuel, 1))
 
-        arcade.draw_text(telemetry, 10, 10, arcade.color.BLACK, 18, anchor_x="left")
+        arcade.draw_text(telemetry, 10, 10, arcade.color.YELLOW, 18, anchor_x="left")
+
 
     def on_draw(self):
         """ Отрендерить этот экран. """
