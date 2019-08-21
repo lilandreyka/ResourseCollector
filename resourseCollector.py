@@ -4,7 +4,7 @@ from math import sin, cos, radians
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-RESOURSE_COUNT = 6
+RESOURSE_COUNT = 9
 
 def check_collision(obj1, obj2):
 
@@ -37,7 +37,7 @@ class Robot:
         self.dx = sin(radians(self.ang))
         self.dy = cos(radians(self.ang))
         self.fuel = 100
-        self.fuel_dec = 0.05
+        self.fuel_dec = 0.1
         self.size = 60
         self.box_total = 4
         self.box_current = 0
@@ -202,12 +202,12 @@ class MyGame(arcade.Window):
         if self.state == 'game_over':
             arcade.draw_text("Миссия провалена!",
                              SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
-                             arcade.color.RED, 25, width=200,
+                             arcade.color.RED, 30, width=500,
                              align="center", anchor_x="center", anchor_y="center")
         if self.state == 'win':
-            arcade.draw_text("УРА!!!\nМиссия выполнена!",
+            arcade.draw_text("УРА!!!\nМиссия выполнена!\nвсе ресурсы доставлены на базу",
                              SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
-                             arcade.color.RED, 25, width=200,
+                             arcade.color.RED, 25, width=500,
                              align="center", anchor_x="center", anchor_y="center")
 
     def on_key_press(self, symbol: int, modifiers: int):
