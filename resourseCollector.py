@@ -71,9 +71,11 @@ class Resurse:
         self.x = random.randint(self.size, SCREEN_WIDTH - self.size)
         self.y = random.randint(self.size, SCREEN_WIDTH - self.size)
         self.color = [150, 150, 100]
+        self.img = arcade.load_texture('img/water.png')
 
     def draw(self):
-        arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size, self.color)
+        # arcade.draw_rectangle_filled(self.x, self.y, self.size, self.size, self.color)
+        arcade.draw_texture_rectangle(self.x, self.y, self.size, self.size, self.img)
 
 
 class Background:
