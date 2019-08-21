@@ -38,6 +38,8 @@ class Robot:
         self.fuel = 100
         self.fuel_dec = 0.05
         self.size = 60
+        self.box_total = 4
+        self.box_current = 0
         self.img = arcade.load_texture('robot1.png')
         self.color = arcade.color.BLOND
 
@@ -61,6 +63,10 @@ class Robot:
     def speed_down(self):
         if self.speed >= 0:
             self.speed -= 0.5
+
+    def load_box(self):
+        if self.box_current < self.box_total:
+            self.box_current += 1
 
     def move(self):
         if self.fuel > 0:
@@ -163,6 +169,10 @@ class MyGame(arcade.Window):
     def update(self, delta_time):
         """ Здесь вся игровая логика и логика перемещения."""
         self.robot.move()
+        for resourse in self.resurse_list:
+            if check_collision(resourse, self.robot):
+                self.robot.load_box()
+                self.resurse_list.remove(resourse)
 
         pass
 
