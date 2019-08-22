@@ -55,7 +55,7 @@ class Robot:
 
     def speed_up(self):
         if self.speed < 5:
-            self.speed += 0.5
+            self.speed += 0.50
 
     def speed_down(self):
         if self.speed >= 0:
@@ -184,9 +184,9 @@ class MyGame(arcade.Window):
                     'в поле: {} \n'.format(len(self.resurse_list)) + \
                     'на борту: {} \n'.format(self.robot.box_current)
 
-        arcade.draw_xywh_rectangle_filled(5, 10, 150, 120, arcade.color.DARK_BLUE_GRAY)
-        arcade.draw_xywh_rectangle_outline(5, 10, 150, 120, arcade.color.BLACK, 4)
-        arcade.draw_text(telemetry, 10, 100, arcade.color.YELLOW, 15, anchor_x="left")
+        arcade.draw_xywh_rectangle_filled(5, 10, 150, 100, arcade.color.DARK_BLUE_GRAY)
+        arcade.draw_xywh_rectangle_outline(5, 10, 150, 100, arcade.color.BLACK, 4)
+        arcade.draw_text(telemetry, 10, 15, arcade.color.YELLOW, 16, anchor_x="left")
 
 
     def on_draw(self):
@@ -207,7 +207,7 @@ class MyGame(arcade.Window):
         if self.state == 'win':
             arcade.draw_text("УРА!!!\nМиссия выполнена!\nвсе ресурсы доставлены на базу",
                              SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
-                             arcade.color.RED, 25, width=500,
+                             arcade.color.YELLOW_ORANGE, 25, width=500,
                              align="center", anchor_x="center", anchor_y="center")
 
     def on_key_press(self, symbol: int, modifiers: int):
